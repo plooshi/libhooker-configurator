@@ -533,7 +533,7 @@
 					/usr/lib/libswift/stable,
 				);
 				MARKETING_VERSION = 1.3.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.coolstar.libhooker-configurator";
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.ploosh.libhooker-configurator";
 				PRODUCT_NAME = libhooker;
 				SWIFT_OBJC_BRIDGING_HEADER = "libhooker configurator/libhooker configurator-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -560,7 +560,7 @@
 					/usr/lib/libswift/stable,
 				);
 				MARKETING_VERSION = 1.3.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.coolstar.libhooker-configurator";
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.ploosh.libhooker-configurator";
 				PRODUCT_NAME = libhooker;
 				SWIFT_OBJC_BRIDGING_HEADER = "libhooker configurator/libhooker configurator-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
