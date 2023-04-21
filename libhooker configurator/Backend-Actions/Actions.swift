@@ -39,7 +39,12 @@ func disableTweaks() {
 }
 
 func respring() {
-    _ = runCmd(path: "/usr/bin/sbreload", args: ["sbreload"])
+    #if ROOTLESS
+    let path = "/var/jb/usr/bin/sbreload"
+    #else
+    let path = "/usr/bin/sbreload"
+    #endif
+    _ = runCmd(path: path, args: ["sbreload"])
 }
 
 func userspaceReboot() {

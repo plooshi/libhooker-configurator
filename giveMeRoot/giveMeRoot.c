@@ -7,6 +7,12 @@
 #include <stdbool.h>
 #include <fcntl.h>
 
+#ifdef ROOTLESS
+#define PREFIX "/var/jb"
+#else
+#define PREFIX ""
+#endif
+
 #define PROC_PIDPATHINFO_MAXSIZE  (1024)
 int proc_pidpath(pid_t pid, void *buffer, uint32_t buffersize);
 
@@ -21,7 +27,7 @@ extern int reboot3(uint64_t arg);
 
 int main(int argc, char *argv[]){
     struct stat correct;
-    if (lstat("/Applications/libhooker.app/libhooker", &correct) == -1){
+    if (lstat(PREFIX "/Applications/libhooker.app/libhooker", &correct) == -1){
         fprintf(stderr, "Cease your resistance!\n");
         return EX_NOPERM;
     }
@@ -32,7 +38,7 @@ int main(int argc, char *argv[]){
     char pathbuf[PROC_PIDPATHINFO_MAXSIZE] = {0};
     int ret = proc_pidpath(parent, pathbuf, sizeof(pathbuf));
     if (ret > 0){
-        if (strcmp(pathbuf, "/Applications/libhooker.app/libhooker") == 0){
+        if (strcmp(pathbuf, PREFIX "/Applications/libhooker.app/libhooker") == 0){
             libhooker = true;
         }
     }
@@ -60,17 +66,17 @@ int main(int argc, char *argv[]){
         return 0;
     }
     if (strcmp(argv[1], "enableTweaks") == 0){
-        unlink("/.disable_tweakinject");
+        unlink(PREFIX "/.disable_tweakinject");
         return 0;
     }
     if (strcmp(argv[1], "disableTweaks") == 0){
-        int fd = open("/.disable_tweakinject", O_CREAT);
+        int fd = open(PREFIX "/.disable_tweakinject", O_CREAT);
         close(fd);
         return 0;
     }
     if (strcmp(argv[1], "ldRestart") == 0){
         char *args[2] = {"ldrestart", NULL};
-        execv("/usr/bin/ldrestart", args);
+        execv(PREFIX "/usr/bin/ldrestart", args);
         return 0;
     }
     if (strcmp(argv[1], "userspaceReboot") == 0){

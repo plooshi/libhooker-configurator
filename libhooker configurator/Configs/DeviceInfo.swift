@@ -81,8 +81,10 @@ public class DeviceInfo {
         #if targetEnvironment(simulator)
         return "1.4.0"
         #else
-        let libhookerPackage = packagesList["org.coolstar.libhooker"]
-        return libhookerPackage?.version ?? "Unknown"
+        let libhookerPackage = packagesList["dev.ploosh.libhooker-oss"]
+        let libhookerOrigPackage = packagesList["org.coolstar.libhooker"]
+        let lhVersion = libhookerPackage?.version ?? libhookerOrigPackage?.version
+        return lhVersion ?? "Unknown"
         #endif
     }
     

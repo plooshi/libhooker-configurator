@@ -96,7 +96,12 @@ struct TweakCompatibility: View {
         #if targetEnvironment(simulator)
         let rawTweaksList = ["Test1.dylib", "Test2.dylib"]
         #else
-        let rawTweaksList: [String] = (try? FileManager.default.contentsOfDirectory(atPath: "/usr/lib/TweakInject"))?.filter({ $0.hasSuffix(".dylib") }) ?? []
+        #if ROOTLESS
+        let path = "/var/jb/usr/lib/TweakInject"
+        #else
+        let path = "/usr/lib/TweakInject"
+        #endif
+        let rawTweaksList: [String] = (try? FileManager.default.contentsOfDirectory(atPath: path))?.filter({ $0.hasSuffix(".dylib") }) ?? []
         #endif
         
         var tweaks: [String: Bool] = [:]

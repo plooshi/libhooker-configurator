@@ -36,7 +36,12 @@ class PackageListManager {
 #if targetEnvironment(simulator)
         return Bundle.main.bundleURL.appendingPathComponent("Test Data")
 #else
-        return URL(fileURLWithPath: "/Library/dpkg")
+#if ROOTLESS
+        let path = "/var/jb/Library/dpkg"
+#else
+        let path = "/Library/dpkg"
+#endif
+        return URL(fileURLWithPath: path)
 #endif
     }
     

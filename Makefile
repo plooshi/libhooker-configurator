@@ -5,14 +5,23 @@ DEBUG         ?= 0
 # Beta build or not?
 BETA          ?= 0
 
+ROOTLESS      ?= 0
+CFLAGS        ?= ""
+
+ifeq ($(ROOTLESS), 1)
+    CFLAGS += "-D ROOTLESS"
+	DEB_ARCH = iphoneos-arm64
+	PREFIX=var/jb
+endif
+
 # Platform to build for.
 LHC_PLATFORM ?= iphoneos-arm64
 TARGET_CODESIGN = $(shell which ldid)
 ARCH            = arm64
 PLATFORM        = iphoneos
-DEB_ARCH        = iphoneos-arm
+DEB_ARCH       ?= iphoneos-arm
 DEB_DEPENDS     = org.coolstar.libhooker (>=1.4.0), firmware (>= 12.2) | org.swift.libswift (>= 5.0), firmware (>= 12.0)
-PREFIX          =
+PREFIX          ?=
 
 ifneq (,$(shell which xcpretty))
 ifeq ($(V),0)
@@ -55,14 +64,14 @@ endif
 
 giveMeRoot/bin/giveMeRoot: giveMeRoot/giveMeRoot.c
 	$(MAKE) -C giveMeRoot \
-		CC="xcrun -sdk $(PLATFORM) cc -arch $(ARCH)"
+		CC="xcrun -sdk $(PLATFORM) clang $(CFLAGS) -arch $(ARCH)"
 
 $(LHC_APP_DIR):
 	@set -o pipefail; \
 		xcodebuild -jobs $(shell sysctl -n hw.ncpu) -project 'libhooker configurator.xcodeproj' -scheme 'libhooker configurator' -configuration $(BUILD_CONFIG) -arch $(ARCH) -sdk $(PLATFORM) -derivedDataPath $(LHCTMP) \
 		archive -archivePath="$(LHCTMP)/libhooker.xcarchive" \
 		CODE_SIGNING_ALLOWED=NO PRODUCT_BUNDLE_IDENTIFIER=$(PRODUCT_BUNDLE_IDENTIFIER) \
-		DSTROOT=$(LHCTMP)/install $(XCPRETTY)
+		OTHER_CFLAGS="$(CFLAGS)" OTHER_SWIFT_FLAGS="$(CFLAGS)" DSTROOT=$(LHCTMP)/install $(XCPRETTY)
 	@rm -f $(LHC_APP_DIR)/Frameworks/libswift*.dylib
 	@function process_exec { \
 		$(STRIP) $$1; \

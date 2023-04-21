@@ -59,7 +59,12 @@ class TweaksEnabledSwitch: UITableViewCell {
         control.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         control.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor).isActive = true
         control.addTarget(self, action: #selector(self.didChange(sender:)), for: .valueChanged)
-        control.isOn = !FileManager.default.fileExists(atPath: "/.disable_tweakinject")
+        #if ROOTLESS
+        let path = "/var/jb/.disable_tweakinject"
+        #else
+        let path = "/.disable_tweakinject"
+        #endif
+        control.isOn = !FileManager.default.fileExists(atPath: path)
     }
     
     @objc private func didChange(sender: UISwitch!) {
