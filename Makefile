@@ -6,10 +6,10 @@ DEBUG         ?= 0
 BETA          ?= 0
 
 ROOTLESS      ?= 0
-CFLAGS        ?= ""
+CFLAGS        ?=
 
 ifeq ($(ROOTLESS), 1)
-    CFLAGS += "-D ROOTLESS"
+    CFLAGS += -D ROOTLESS
 	DEB_ARCH = iphoneos-arm64
 	PREFIX=var/jb
 endif
