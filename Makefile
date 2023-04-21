@@ -48,7 +48,7 @@ LHC_APP  = libhooker.app
 
 LHCTMP = $(TMPDIR)/libhooker
 LHC_STAGE_DIR = $(LHCTMP)/stage
-LHC_APP_DIR = $(LHCTMP)/install/$(PREFIX)/Applications/libhooker.app
+LHC_APP_DIR = $(LHCTMP)/install/Applications/libhooker.app
 
 ifneq ($(DEBUG),0)
 BUILD_CONFIG  := Debug
