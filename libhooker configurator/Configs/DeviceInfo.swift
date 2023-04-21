@@ -48,6 +48,10 @@ public class DeviceInfo {
         guard !detectOdysseyRa1n() else {
             return "Odysseyra1n"
         }
+        guard !detectPaleRa1n() else {
+            return "Palera1n"
+        }
+
         let odysseyJbd = "/odyssey/jailbreakd"
         let taurineJbd = "/taurine/jailbreakd"
         let chimeraJbd = "/chimera/jailbreakd"
@@ -90,6 +94,18 @@ public class DeviceInfo {
     
     private func detectOdysseyRa1n() -> Bool {
         isUnionMountPresent()
+    }
+
+    private func detectPaleRa1n() -> Bool {
+        var isDir: ObjCBool = false
+
+        if FileManager.default.fileExists(atPath: "/cores/binpack/Applications/palera1nLoader.app", isDirectory: &isDir) {
+            if isDir {
+                return true
+            }
+        }
+
+        return false
     }
 
     private func sha1File(url: URL) -> String {
