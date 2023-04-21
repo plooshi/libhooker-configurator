@@ -100,7 +100,7 @@ public class DeviceInfo {
         var isDir: ObjCBool = false
 
         if FileManager.default.fileExists(atPath: "/cores/binpack/Applications/palera1nLoader.app", isDirectory: &isDir) {
-            if isDir {
+            if isDir.boolValue {
                 return true
             }
         }
