@@ -49,7 +49,7 @@ public class DeviceInfo {
             return "Odysseyra1n"
         }
         guard !detectPaleRa1n() else {
-            return "Palera1n"
+            return "palera1n"
         }
 
         let odysseyJbd = "/odyssey/jailbreakd"
