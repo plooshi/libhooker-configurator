@@ -75,12 +75,8 @@ class LHUserDefaults {
         return userDefaults.synchronize()
         #else
         var success = true
-        #if ROOTLESS
-        let path = "/var/jb/var/mobile/Library/Preferences/\(Bundle.main.bundleIdentifier ?? "").plist"
-        #else
-        let path = "/var/mobile/Library/Preferences/\(Bundle.main.bundleIdentifier ?? "").plist"
-        #endif
-        let url = URL(fileURLWithPath: path)
+
+        let url = URL(fileURLWithPath: "/var/mobile/Library/Preferences/\(Bundle.main.bundleIdentifier ?? "").plist")
         if plistLoaded {
             if let data = try? PropertyListSerialization.data(fromPropertyList: plist, format: .binary, options: 0) {
                 try? data.write(to: url)
