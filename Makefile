@@ -71,7 +71,7 @@ $(LHC_APP_DIR):
 		xcodebuild -jobs $(shell sysctl -n hw.ncpu) -project 'libhooker configurator.xcodeproj' -scheme 'libhooker configurator' -configuration $(BUILD_CONFIG) -arch $(ARCH) -sdk $(PLATFORM) -derivedDataPath $(LHCTMP) \
 		archive -archivePath="$(LHCTMP)/libhooker.xcarchive" \
 		CODE_SIGNING_ALLOWED=NO PRODUCT_BUNDLE_IDENTIFIER=$(PRODUCT_BUNDLE_IDENTIFIER) \
-		OTHER_CFLAGS="$(CFLAGS)" OTHER_SWIFT_FLAGS="$(CFLAGS)" DSTROOT=$(LHCTMP)/install $(XCPRETTY)
+		"SWIFT_FLAGS=$(CFLAGS)" DSTROOT=$(LHCTMP)/install $(XCPRETTY)
 	@rm -f $(LHC_APP_DIR)/Frameworks/libswift*.dylib
 	@function process_exec { \
 		$(STRIP) $$1; \
