@@ -4,8 +4,8 @@ Section: Packaging
 Maintainer: CoolStar <coolstarorganization@gmail.com>
 Architecture: @@DEB_ARCH@@
 Version: @@MARKETING_VERSION@@
-Icon: https://repo.theodyssey.dev/depictions/icons/libhooker.png
-SileoDepiction: https://repo.theodyssey.dev/depictions/json/libhooker-configurator.json
+Icon: https://repo.ploosh.dev/assets/libhooker-oss.png
+SileoDepiction: https://repo.ploosh.dev/meta/libhooker-configurator.json
 Depends: @@DEB_DEPENDS@@
 Description: Configuration Utility for libhooker
 Name: @@PACKAGE_NAME@@
